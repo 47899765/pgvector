@@ -709,7 +709,7 @@ Operator | Description | Added
 <-> | Euclidean distance |
 <#> | negative inner product |
 <=> | cosine distance |
-<|> | taxicab distance | 0.7.0
+<\|> | taxicab distance | 0.7.0
 
 ### Vector Functions
 
