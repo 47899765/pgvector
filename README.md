@@ -221,6 +221,12 @@ Cosine distance
 CREATE INDEX ON items USING hnsw (embedding vector_cosine_ops);
 ```
 
+L1 distance - added in 0.7.0
+
+```sql
+CREATE INDEX ON items USING hnsw (embedding vector_l1_ops);
+```
+
 Vectors with up to 2,000 dimensions can be indexed.
 
 ### Index Options
@@ -324,6 +330,12 @@ Cosine distance
 
 ```sql
 CREATE INDEX ON items USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+```
+
+L1 distance - added in 0.7.0
+
+```sql
+CREATE INDEX ON items USING ivfflat (embedding vector_l1_ops) WITH (lists = 100);
 ```
 
 Vectors with up to 2,000 dimensions can be indexed.
@@ -697,6 +709,7 @@ Operator | Description | Added
 <-> | Euclidean distance |
 <#> | negative inner product |
 <=> | cosine distance |
+<|> | taxicab distance | 0.7.0
 
 ### Vector Functions
 
