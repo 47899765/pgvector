@@ -208,6 +208,36 @@ SELECT l1_distance('[3e38]'::vector, '[-3e38]');
     Infinity
 (1 row)
 
+SELECT normalize_l2('[3,4]');
+ normalize_l2 
+--------------
+ [0.6,0.8]
+(1 row)
+
+SELECT normalize_l2('[3,0]');
+ normalize_l2 
+--------------
+ [1,0]
+(1 row)
+
+SELECT normalize_l2('[0,0.1]');
+ normalize_l2 
+--------------
+ [0,1]
+(1 row)
+
+SELECT normalize_l2('[0,0]');
+ normalize_l2 
+--------------
+ [0,0]
+(1 row)
+
+SELECT normalize_l2('[3e38]');
+ normalize_l2 
+--------------
+ [1]
+(1 row)
+
 SELECT quantize_binary('[1,0,-1]');
  quantize_binary 
 -----------------
