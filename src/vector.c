@@ -758,6 +758,44 @@ vector_norm(PG_FUNCTION_ARGS)
 }
 
 /*
+ * Normalize a vector with the L2 norm
+ */
+PGDLLEXPORT PG_FUNCTION_INFO_V1(normalize_l2);
+Datum
+normalize_l2(PG_FUNCTION_ARGS)
+{
+	Vector	   *a = PG_GETARG_VECTOR_P(0);
+	float	   *ax = a->x;
+	double		norm = 0;
+	Vector	   *result;
+	float	   *rx;
+
+	result = InitVector(a->dim);
+	rx = result->x;
+
+	/* Auto-vectorized */
+	for (int i = 0; i < a->dim; i++)
+		norm += (double) ax[i] * (double) ax[i];
+
+	norm = sqrt(norm);
+
+	if (norm > 0)
+	{
+		for (int i = 0; i < a->dim; i++)
+			rx[i] = ax[i] / norm;
+
+		/* Check for overflow */
+		for (int i = 0; i < a->dim; i++)
+		{
+			if (isinf(rx[i]))
+				float_overflow_error();
+		}
+	}
+
+	PG_RETURN_POINTER(result);
+}
+
+/*
  * Add vectors
  */
 PGDLLEXPORT PG_FUNCTION_INFO_V1(vector_add);
